@@ -10,8 +10,8 @@ const app = express();
 // it will add support for req.body to be parsed for content of regular form
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
-app.use(adminRoute);
+// prefix of admin route - for all routes that are hadnled internanlly
+app.use('/admin', adminRoute);
 app.use(shopRoute);
 
 // adding error page and 404 status
