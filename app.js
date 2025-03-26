@@ -1,28 +1,27 @@
 const http = require('http');
 
 const express = require('express');
+const bodyParser = require('body-parser');
+
 // initialize express as requestHandler
 const app = express();
+// it will add support for req.body to be parsed for content of regular form
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
-// possible to add different middlewares
-// for now we will define one generic that
-// will be executed for every request
-app.use((req, res, next) => {
-    // in this middleware we will do something and call next
-    // to pass the request to the next middleware
-    console.log('this will always run');
-    next();
-
-    // if we don't call next, the request will be blocked
-    // and the request will not be passed to the next middleware
-    //instead we can handle the express.response if not sending next
-})
 // this will run only for add product
 app.use('/add-product', (req, res, next) => {
     // in this middleware we will send a response - so no need to call next
     console.log('Hello from add product middleware');
     // no need to specify the content type header as text/html - it is the default
-    res.send('<H1>Hello from add product</H1>');
+    res.send('<form action="/product" method="POST"><input type="text" name="title"><button type="submit">Add Product</button></form>');
+})
+
+app.use('/product', (req, res, next) => {
+    // now body will hold the form data - after it is parsed
+    console.log(req.body);
+    // redirect back to root - no need to set status and header location
+    res.redirect('/');
 })
 // this will always run - unless previous middleware returned response
 app.use('/', (req, res, next) => {
@@ -33,8 +32,3 @@ app.use('/', (req, res, next) => {
 })
 // shortcut for server listening
 app.listen(3000);
-// const server = http.createServer(app);
-
-// // start the server and listen on port 3000 to incoming requests
-// // ongoing loop
-// server.listen(3000);
