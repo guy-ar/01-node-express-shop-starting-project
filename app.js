@@ -14,5 +14,9 @@ app.use(express.json());
 app.use(adminRoute);
 app.use(shopRoute);
 
+// adding error page and 404 status
+app.use((req, res, next) => {
+    res.status(404).send('<H1>Page not found</H1>');
+});
 // shortcut for server listening
 app.listen(3000);
