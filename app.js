@@ -5,9 +5,12 @@ const bodyParser = require('body-parser');
 
 // initialize express as requestHandler
 const app = express();
-// it will add support for req.body to be parsed for content of regular form
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+// // it will add support for req.body to be parsed for content of regular form
+// app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.json());
+// replace bodyParser with express built-in parser
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // this will run only for add product
 app.use('/add-product', (req, res, next) => {
