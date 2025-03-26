@@ -1,4 +1,5 @@
 const http = require('http');
+const path = require('path');
 
 const express = require('express');
 
@@ -16,7 +17,7 @@ app.use(shopRoute);
 
 // adding error page and 404 status
 app.use((req, res, next) => {
-    res.status(404).send('<H1>Page not found</H1>');
+    res.status(404).sendFile(path.join(__dirname, 'views', 'page-not-found.html'));
 });
 // shortcut for server listening
 app.listen(3000);
