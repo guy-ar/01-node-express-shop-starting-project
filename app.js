@@ -1,14 +1,10 @@
 const http = require('http');
 
 const express = require('express');
-const bodyParser = require('body-parser');
 
 // initialize express as requestHandler
 const app = express();
-// // it will add support for req.body to be parsed for content of regular form
-// app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(bodyParser.json());
-// replace bodyParser with express built-in parser
+// it will add support for req.body to be parsed for content of regular form
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -20,7 +16,10 @@ app.use('/add-product', (req, res, next) => {
     res.send('<form action="/product" method="POST"><input type="text" name="title"><button type="submit">Add Product</button></form>');
 })
 
-app.use('/product', (req, res, next) => {
+// as we want only POST request for this middleware we will use post method
+// we have it also for app.get, app.path and app.put and not just app.post
+//app.use('/product', (req, res, next) => {
+app.post('/product', (req, res, next) => {
     // now body will hold the form data - after it is parsed
     console.log(req.body);
     // redirect back to root - no need to set status and header location
