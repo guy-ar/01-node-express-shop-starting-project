@@ -1,6 +1,7 @@
 const path = require('path')
 
 const express = require('express')
+const rootDir = require('../util/path')
 
 const router = express.Router();
 
@@ -9,8 +10,9 @@ const router = express.Router();
 router.get('/add-product', (req, res, next) => {
     // in this middleware we will send a response - so no need to call next
     console.log('Hello from add product middleware');
-    // use admin html
-    res.sendFile(path.join(__dirname, '..', 'views', 'add-product.html'));
+    // now we can use rootDir instead of __dirname
+    //res.sendFile(path.join(__dirname, '..', 'views', 'add-product.html'));
+    res.sendFile(path.join(rootDir, 'views', 'add-product.html'));
 })
 // we will use same route for both get and post
 // /admin/add-product => POST
