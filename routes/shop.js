@@ -11,7 +11,7 @@ router.get('/', (req, res, next) => {
     // need to use path in order to concatenate paths based on OS
     // __dirname will return path to current directory, then we are adding one upper level
     // then we are adding views folder
-    res.sendFile(path.join(__dirname, '../', 'views', 'shop.html'));
+    res.sendFile(path.join(__dirname, '..', 'views', 'shop.html'));
 })
 
 module.exports = router
